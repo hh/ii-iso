@@ -1,50 +1,29 @@
-#
+The ii-usb-creator.sh should be looked at, but basically creates a /tmp/grubby-fish.tgz with:
 
+* the contents of ii-chef
+* the modified grub images and configs from /var/lib/dell-recovery
+* debs/*deb
+
+And passes that to dell-bto-autobuilder
+
+ii-chef/validation.pem and ii-chef/client.rb should be updated (and can also be updated directly on the usb/isos this creates) to point to other chef servers / organziations.
+
+The creation of the usb basically requires a fork of dell-recovery and usb-creator
+
+* https://code.launchpad.net/~hippiehacker/ii/dell-recovery.precise
+* https://code.launchpad.net/~hippiehacker/ii/usb-creator
+
+That get's published in my ppa
+
+* https://launchpad.net/~hippiehacker/+archive/ii
+
+And all of that can be installed on a precise host by doing the following:
+
+```
 sudo apt-add-repository ppa:hippiehacker/ii
 sudo apt-get update
 sudo apt-get upgrade
 sudo apt-get install dell-recovery
 sudo apt-get install dell-recovery-bootloader
 sudo apt-get install usb-recovery
-
-# Make sure it's the version from ppa:hippiehacker/ii
-
-FISH_DIR=$(mktemp -d -p /run/shm grubby-recovery.XXXX)
-cd $FISH_DIR
-
-# What other interesting things can go in factory.. configs, git checkouts?
-# So far these are mainly custom build grub binaries and the grub.cfg
-# at what point does this grub.cfg get checked?
-mkdir factory
-cp -a /var/lib/dell-recovery/{grub.cfg,grub-setup.exe,grubx64.efi} factory
-cp -a /var/lib/dell-recovery/{boot,core}.img factory
-
-# pcbios grub needs to be detected and installed correctly
-mkdir boot
-
-# copy standard (are these customized?) eltorito.img and i386-pc grub files into /boot/grub
-# this also copies in dell-recovery/iso/i386-pc/{boot.img,core.img}
-cp -a /var/lib/dell-recovery/iso boot/grub
-
-# usb-creator-common_0.2.41_amd64.deb  usb-creator-gtk_0.2.41_amd64.deb
-# to overcome the 16.4k size limit before the partition
-mkdir -p debs/main
-cp -a ~/ii/debs/*deb  debs
-
-
-# Put this into a fish, and add the tgz file to a driver file 
-tar cvfz /tmp/grubby-fish.tgz .
-echo /tmp/grubby-fish.tgz > /tmp/fish-drivers
-
-# clean ourselves up
-cd -
-rm -rf $FISH_DIR
-
-#apt-get install python-progressbar
-/usr/share/dell/bin/dell-bto-autobuilder  -b /share/iso/ubuntu-12.04-desktop-amd64.iso -d /tmp/fish-drivers --target-name-prefix=ii --dell-recovery /home/hh/ii/dell-recovery_1.24.1000_all.deb --target-dir=/run/shm
-#  -t 123456789 # must be an integer?
-
-kvm -cdrom /run/shm/ii*iso
-
-# dell-recovery -t /run/shm -m usb --burn # fails to create the .disk/casper-uuid # methinks BUG
-usb-creator-gtk -n --iso /run/shm/ii-ubuntu-12.04-amd64-dell_X00.iso # works 
+```
