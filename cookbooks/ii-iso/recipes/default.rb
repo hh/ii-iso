@@ -17,12 +17,4 @@
 # limitations under the License.
 #
 
-package 'python-software-properties'
-
-execute 'apt-add-repository ppa:hippiehacker/ii -y ; apt-get update' do
-  creates '/etc/apt/sources.list.d/hippiehacker-ii-precise.list'
-end
-
-%w{dell-recovery dell-recovery-bootloader usb-creator-gtk}.each do |p|
-  package p
-end
+include_recipe 'ii-iso::ppa'

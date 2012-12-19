@@ -4,18 +4,6 @@ if [ "$mydir" = "." ] ; then
   mydir=`pwd`
 fi
 
-# Make sure dell-recovery, dell-recovery-bootloader, and usb-creator-gtk
-# are from ppa:hippiehacker/ii, my versions end in x.y.1000 or higher
- 
-for pkg in dell-recovery usb-creator-gtk
-do
-  version=`dpkg-query -W -f='${Version}' $pkg | cut -d. -f 3`
-  if [ $version -lt 1000 ]; then
-      echo "please install $pkg from ppa:hippiehacker/ii"
-      exit 1
-  fi
-done
-
 TMPDIR=/run/shm # This builds crazy fast on my machine
 #TMPDIR=/tmp # Use this if you don't have enough room
 
