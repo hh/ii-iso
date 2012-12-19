@@ -1,3 +1,14 @@
+
+
+```
+git clone git@github.com:hh/ii-iso.git
+cd ii-iso
+sudo chef-solo -c ii-iso-solo.rb
+```
+
+should get you closer to where you need to go!
+
+
 The ii-usb-creator.sh should be looked at, but basically creates a /tmp/grubby-fish.tgz with:
 
 * the contents of ii-chef

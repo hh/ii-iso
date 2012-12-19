@@ -17,4 +17,3 @@ execute 'create deb fish driver' do
   cwd deb_fish_dir
   creates "#{deb_fish_dir}.tgz"
 end
-
