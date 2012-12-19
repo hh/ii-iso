@@ -18,3 +18,9 @@
 #
 
 include_recipe 'ii-iso::ppa'
+include_recipe 'ii-iso::fish-base'
+include_recipe 'ii-iso::fish-debs'
+include_recipe 'ii-iso::fish-chef'
+
+
+
