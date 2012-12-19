@@ -19,9 +19,18 @@
 
 include_recipe 'ii-iso::ppa'
 include_recipe 'ii-iso::src-iso'
-include_recipe 'ii-iso::fish-base'
+
+node.run_state[:seen_fish]=[]
+
+include_recipe 'ii-iso::fish-grub'
 include_recipe 'ii-iso::fish-debs'
 include_recipe 'ii-iso::fish-chef'
+
+file node['ii-iso']['fish-drivers-file'] do
+  content node.run_state[:seen_fish].join("\n")+"\n"
+end
+
+include_recipe 'ii-iso::build-to-order'
 
 
 

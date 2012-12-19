@@ -16,3 +16,5 @@ execute 'create custom fish driver' do
   cwd custom_fish_dir
   creates "#{custom_fish_dir}.tgz"
 end
+
+node.run_state[:seen_fish] << "#{custom_fish_dir}.tgz"

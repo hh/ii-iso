@@ -1,5 +1,5 @@
-remote_file node['ii-iso']['ubuntu-iso']['cache'] do
+remote_file node['ii-iso']['ubuntu-iso']['src']['cache'] do
   source node['ii-iso']['ubuntu-iso']['src']['url']
   checksum node['ii-iso']['ubuntu-iso']['src']['checksum']
-  not_if {File.exists? node['ii-iso']['ubuntu-iso']['cache']}
+  not_if {File.exists? node['ii-iso']['ubuntu-iso']['src']['cache']}
 end

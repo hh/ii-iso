@@ -2,7 +2,7 @@
 ```
 bzr branch lp:~hippiehacker/ii/dell-recovery.precise
 cd dell-recovery.precise
-dpkg-buildpackage -B
+dpkg-buildpackage -b
 cd ..
 dpkg -i dell-recovery_1.24.1-1ii_all.deb
 ```
@@ -12,14 +12,14 @@ dpkg -i dell-recovery_1.24.1-1ii_all.deb
 bzr branch lp:~hippiehacker/ii/dell-recovery.precise
 cd dell-recovery.precise
 # bump debian/changlog
-debuild -B -sa -i -D
+debuild -S -sa -i -D
 dput ppa:hippiehacker/ii ../dell-recovery_1.24.1-1ii_source.changes
 ```
 
 ```
 bzr branch lp:~hippiehacker/ii/usb-creator
 cd usb-creator
-dpkg-buildpackage -B
+dpkg-buildpackage -b
 cd ..
 sudo dpkg -i usb-creator-common_0.2.41_amd64.deb usb-creator-gtk_0.2.41_amd64.deb 
 ```
@@ -29,6 +29,6 @@ sudo dpkg -i usb-creator-common_0.2.41_amd64.deb usb-creator-gtk_0.2.41_amd64.de
 bzr branch lp:~hippiehacker/ii/usb-creator
 cd usb-creator
 # bump debian/changlog
-debuild -B -sa -i -D
+debuild -S -sa -i -D
 dput ppa:hippiehacker/ii ../usb-creator_1.24.100X_source.changes
 ```

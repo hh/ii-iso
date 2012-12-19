@@ -28,7 +28,7 @@ echo ${mydir}/grubby-fish.tgz > ${mydir}/fish-drivers
 # to overcome the 16.4k size limit before the partition
 # Testing ./debs vs ./debs/main
 mkdir -p debs/main
-cp -a ${mydir}/debs/*deb  debs
+cp -a ${mydir}/debs/*deb debs
 mkdir -p factory
 cp -a ${mydir}/ii-chef factory/chef
 

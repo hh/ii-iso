@@ -17,3 +17,5 @@ execute 'create deb fish driver' do
   cwd deb_fish_dir
   creates "#{deb_fish_dir}.tgz"
 end
+
+node.run_state[:seen_fish] << "#{deb_fish_dir}.tgz"
